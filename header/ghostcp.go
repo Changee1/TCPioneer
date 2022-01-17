@@ -391,12 +391,14 @@ func getMyIPv6() net.IP {
 	return nil
 }
 
-func LoadConfig() error {
+func LoadConfig(configname string) error {
 	DomainMap = make(map[string]Config)
 	IPMap = make(map[string]IPConfig)
 	BadIPMap = make(map[string]bool)
-
-	conf, err := os.Open("default.conf")
+	if configname == "" {
+		configname = "default.conf"
+	}
+	conf, err := os.Open(configname)
 	if err != nil {
 		return err
 	}
